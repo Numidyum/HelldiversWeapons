@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<contentpackage name="Helldivers Weapons" modversion="1.11" corepackage="False" steamworkshopid="3235413754" gameversion="1.4.6.0">
+  <Item file="%ModDir%/Weapons.xml" />
+  <Text file="%ModDir%/Text/English.xml" />
+</contentpackage>
