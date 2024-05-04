@@ -630,7 +630,7 @@
         <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
         <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" />
         <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" />
-        <RequiredItem identifier="p2mag" mincondition="0.0" maxcondition="0.1" usecondition="false" />
+        <RequiredItem identifier="p19mag" mincondition="0.0" maxcondition="0.1" usecondition="false" />
       </Fabricate>
 
       <Deconstruct time="10">
