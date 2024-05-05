@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Override>
+    <Talents>
+
+        <Talent identifier="warlord">
+            <Description tag="talentdescription.warlord">
+              <Replace tag="[amount]" value="10" color="gui.green"/>
+              <Replace tag="[maxamount]" value="50" color="gui.green"/>
+            </Description>
+            <Description tag="talentdescription.unlockrecipe">
+              <Replace tag="[itemname]" value="entityname.hmg,entityname.hmgmagazine,entityname.jar5,entityname.jar5mag,entityname.r36,entityname.r36mag" color="gui.orange"/>
+            </Description>
+            <Icon texture="Content/UI/TalentsIcons1.png" sheetindex="3,4" sheetelementsize="128,128"/>
+            <AddedRecipe itemidentifier="hmg"/>
+            <AddedRecipe itemidentifier="hmgmagazine"/>
+            <AddedRecipe itemidentifier="jar5"/>
+            <AddedRecipe itemidentifier="jar5mag"/>
+            <AddedRecipe itemidentifier="r36"/>
+            <AddedRecipe itemidentifier="r36mag"/>
+            <AbilityGroupEffect abilityeffecttype="OnAttack">
+              <Conditions>
+                <AbilityConditionAttackData weapontype="handheldranged" />
+                <AbilityConditionNearbyCharacterCount distance="500" targettypes="Enemy" count="1"/>
+              </Conditions>
+              <Abilities>
+                <CharacterAbilityModifyAttackData addeddamagemultiplier="0.1" />
+              </Abilities>
+            </AbilityGroupEffect>
+        
+            <AbilityGroupEffect abilityeffecttype="OnAttack">
+              <Conditions>
+                <AbilityConditionAttackData weapontype="handheldranged" />
+                <AbilityConditionNearbyCharacterCount distance="500" targettypes="Enemy" count="2"/>
+              </Conditions>
+              <Abilities>
+                <CharacterAbilityModifyAttackData addeddamagemultiplier="0.1" />
+              </Abilities>
+            </AbilityGroupEffect>
+        
+            <AbilityGroupEffect abilityeffecttype="OnAttack">
+              <Conditions>
+                <AbilityConditionAttackData weapontype="handheldranged" />
+                <AbilityConditionNearbyCharacterCount distance="500" targettypes="Enemy" count="3"/>
+              </Conditions>
+              <Abilities>
+                <CharacterAbilityModifyAttackData addeddamagemultiplier="0.1" />
+              </Abilities>
+            </AbilityGroupEffect>
+        
+            <AbilityGroupEffect abilityeffecttype="OnAttack">
+              <Conditions>
+                <AbilityConditionAttackData weapontype="handheldranged" />
+                <AbilityConditionNearbyCharacterCount distance="500" targettypes="Enemy" count="4"/>
+              </Conditions>
+              <Abilities>
+                <CharacterAbilityModifyAttackData addeddamagemultiplier="0.1" />
+              </Abilities>
+            </AbilityGroupEffect>
+        
+            <AbilityGroupEffect abilityeffecttype="OnAttack">
+              <Conditions>
+                <AbilityConditionAttackData weapontype="handheldranged" />
+                <AbilityConditionNearbyCharacterCount distance="500" targettypes="Enemy" count="5"/>
+              </Conditions>
+              <Abilities>
+                <CharacterAbilityModifyAttackData addeddamagemultiplier="0.1" />
+              </Abilities>
+            </AbilityGroupEffect>
+          </Talent>
+    
+    
+    </Talents>
+</Override>

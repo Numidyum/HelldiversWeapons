@@ -24,7 +24,7 @@
     <AiTarget sightrange="1250" static="true" />
   </Item>
 
-  <Item name="Ammo Pack" identifier="ammopack" description="" category="material" tags="mediumitem,resupplybox" cargocontaineridentifier="metalcrate" impactsoundtag="impact_metal_light" scale="0.25">
+  <Item name="Ammo Pack" identifier="ammopacksupply" description="" category="material" tags="mediumitem,resupplybox" cargocontaineridentifier="metalcrate" impactsoundtag="impact_metal_light" scale="0.25">
 
     <PreferredContainer primary="armcab" amount="1" spawnprobability="0.1" notcampaign="true" />
   <PreferredContainer secondary="outpostsecarmcab"  amount="1" spawnprobability="0.1" />
@@ -895,6 +895,320 @@
               <Upgrade gameversion="0.10.0.0" scale="0.5" />
             </Item>
 
+            <Item name="JAR-5 Dominator" identifier="jar5" category="Weapon" cargocontaineridentifier="metalcrate" tags="smallautoweapon,smallitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
+   
+              <Price baseprice="2000" minleveldifficulty="90">
+                  <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+                  <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="1" sold="false" />
+                  <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+                  <Price storeidentifier="merchantmilitary" multiplier="1.0" minavailable="2" />
+                  <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+                  <Price storeidentifier="merchantarmory" multiplier="1.0" minavailable="2" />
+                </Price>
+        
+                <Fabricate suitablefabricators="fabricator" requiredtime="90" requiresrecipe="true">
+                  <RequiredSkill identifier="weapons" level="70" />
+                  <RequiredItem identifier="plastic" />
+                  <RequiredItem identifier="physicorium" amount="2" />
+                  <RequiredItem identifier="titaniumaluminiumalloy" amount="3" />
+                </Fabricate>
+        
+                <Deconstruct time="20">
+                  <Item identifier="titaniumaluminiumalloy" amount="2" />
+                  <RequiredItem identifier="steel" amount="1" />
+                </Deconstruct>
+        
+                <InventoryIcon texture="%ModDir%/Weapons/JAR5.png" sourcerect="0,0,0,0" scale="2" />
+                <Sprite texture="%ModDir%/Weapons/JAR5.png" sourcerect="0,0,0,0" depth="0.55" />
+                <Body width="200" height="100" density="25" />
+                <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="50,-10" aimpos="45,-5" handle1="-30,-20" handle2="30,-2" holdangle="-35" msg="ItemMsgPickUpSelect" />
+                <RangedWeapon reload="0.24" weapondamagemodifier="1.0" penetration="0.7" holdtrigger="true" barrelpos="80,27" spread="10" unskilledspread="22" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2">
+                  <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+                  <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+                  <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+                  <Sound file="%ModDir%/Audio/JAR5.ogg" type="OnUse" range="3000" />
+                  <StatusEffect type="OnUse" target="This">
+                      <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
+                      <Explosion range="300.0" force="1.0" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="30.0" />
+                    </StatusEffect>
+                    <!--"Use" contained magazine to spawn projectiles.-->
+                    <StatusEffect type="OnUse" target="Contained">
+                      <Use />
+                    </StatusEffect>
+                    <RequiredItems items="jar5mag" type="Contained" msg="ItemMsgAmmoRequired" />
+                    <RequiredSkill identifier="weapons" level="70" />
+                  </RangedWeapon>
+                  <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
+                    <Containable items="jar5mag" hide="false" itempos="2,-10" rotation="0" />
+                    <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+                    <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+                    <SubContainer capacity="1" maxstacksize="1">
+                      <Containable items="flashlight" hide="true" itempos="22,-1" setactive="true" />
+                    </SubContainer>
+                  </ItemContainer>
+                  <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
+                  <Quality>
+                    <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+                  </Quality>
+                  <Upgrade gameversion="0.10.0.0" scale="0.5" />
+                  <SkillRequirementHint identifier="weapons" level="50" />
+                </Item>
 
+                <Item name="JAR-5 Magazine" identifier="jar5mag" maxstacksize="8" maxstacksizecharacterinventory="2" scale="0.5" category="Weapon" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,smgammo" impactsoundtag="impact_metal_light">
+                  <PreferredContainer primary="jar5" amount="1" spawnprobability="1" />
+                  <PreferredContainer primary="armcab" amount="1" spawnprobability="1" notcampaign="true" />
+                  <PreferredContainer secondary="outpostsecarmcab" minamount="1" maxamount="2" spawnprobability="0.5" />
+                  <PreferredContainer secondary="wrecksecarmcab" minamount="1" maxamount="2" spawnprobability="0.2" />
+                  <PreferredContainer secondary="secarmcab" />
+                  <Price baseprice="300" displaynonempty="true" minleveldifficulty="15">
+                    <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+                    <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="2" sold="false" />
+                    <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+                    <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="4" />
+                    <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+                    <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="4" />
+                  </Price>
+            
+                  <Fabricate suitablefabricators="fabricator" requiredtime="1" displayname="Resupply" requiresrecipe="true">
+                    <RequiredSkill identifier="weapons" level="65" />
+                    <RequiredItem tag="resupplybox" mincondition="0.50" />
+                  </Fabricate>
+                
+                  <Fabricate suitablefabricators="fabricator" requiredtime="1" displayname="Resupplyrecycle" requiresrecipe="true">
+                    <RequiredSkill identifier="weapons" level="65" />
+                    <RequiredItem tag="resupplybox" mincondition="0.40" />
+                    <RequiredItem identifier="jar5mag" mincondition="0.0" maxcondition="0.1" usecondition="false" />
+                  </Fabricate>
+            
+                  <Fabricate suitablefabricators="fabricator" requiredtime="60" requiresrecipe="true">
+                    <RequiredSkill identifier="weapons" level="65" />
+                    <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" amount="2" />
+                    <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" amount="2"/>
+                    <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" amount="2"/>
+                    <RequiredItem identifier="steel" />
+                  </Fabricate>
+                  <Fabricate suitablefabricators="fabricator" requiredtime="15" displayname="recycleitem" requiresrecipe="true">
+                    <RequiredSkill identifier="weapons" level="65" />
+                    <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" amount="2"/>
+                    <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" amount="2"/>
+                    <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" amount="2"/>
+                    <RequiredItem identifier="jar5mag" mincondition="0.0" maxcondition="0.1" usecondition="false" />
+                  </Fabricate>
+                  <Deconstruct time="10">
+                    <Item identifier="steel" />
+                  </Deconstruct>
+                  <InventoryIcon texture="%ModDir%/Magazines/JAR5Mag.png" sourcerect="0,0,0,0" scale="0.5"/>
+                  <Sprite texture="%ModDir%/Magazines/Jar5Mag.png" depth="0.54" sourcerect="0,0,0,0" scale="2"/>
+                  <Body width="14" height="40" density="25" />
+                  <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="jar5round" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
+                    <Containable items="jar5round" />
+                    <!--Spawn an SMG round on use. Condition -4.8 -> 21 shots per magazine.-->
+                    <StatusEffect type="OnUse" target="This" condition="-7.0" disabledeltatime="true">
+                      <SpawnItem identifiers="jar5round" spawnposition="ThisInventory" />
+                    </StatusEffect>
+                  </ItemContainer>
+                  <!--Magazines can be combined to raise condition.-->
+                  <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+                  <Upgrade gameversion="0.10.0.0" scale="0.5" />
+                </Item>
+
+                <Item name="" identifier="jar5round" category="Weapon" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem" impactsoundtag="impact_metal_light" hideinmenus="true" scale="0.5">
+                  <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
+                  <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+                  <Body width="40" height="14" density="30" />
+                  <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+                  <Projectile characterusable="false" hitscan="true" removeonhit="true">
+                    <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,175" scalemultiplier="1,0.6" />
+                    <Attack structuredamage="4" targetforce="5" itemdamage="4" severlimbsprobability="0.5">
+                      <Affliction identifier="gunshotwound" strength="50" />
+                      <Affliction identifier="bleeding" strength="20" />
+                      <Affliction identifier="stun" strength="0.2" probability="0.3" />
+                    </Attack>
+                    <StatusEffect type="OnImpact" target="UseTarget">
+                      <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
+                    </StatusEffect>
+
+                    <StatusEffect type="OnImpact" target="This" disabledeltatime="true">
+                      <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
+                      <Explosion range="10.0" ballastfloradamage="5" structuredamage="5" levelwalldamage="30" itemdamage="10" force="1.0" severlimbsprobability="0.1" debris="false" smoke="false" flames="false" sparks="false" shockwave="true">
+                        <Affliction identifier="bleeding" strength="5" probability="0.05" />
+                        <Affliction identifier="explosiondamage" strength="5" />
+                      </Explosion>
+                      <Remove />
+                    </StatusEffect>
+
+                    <StatusEffect type="OnImpact" target="UseTarget">
+                      <Conditional entitytype="eq Structure" />
+                      <Conditional hastag="eq door" />
+                      <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+                    </StatusEffect>
+                    <!-- smg rounds should not exist outside magazines -->
+                    <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+                      <Remove />
+                    </StatusEffect>
+                  </Projectile>
+                  <Upgrade gameversion="0.10.0.0" scale="0.5" />
+                </Item>
+
+                <Item name="R-36 Eruptor" identifier="r36" category="Weapon" cargocontaineridentifier="metalcrate" tags="smallautoweapon,smallitem,weapon,gun,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">   
+            
+                  <Price baseprice="2500" minleveldifficulty="90">
+                      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+                      <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="1" sold="false" />
+                      <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+                      <Price storeidentifier="merchantmilitary" multiplier="1.0" minavailable="2" />
+                      <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+                      <Price storeidentifier="merchantarmory" multiplier="1.0" minavailable="2" />
+                    </Price>
+            
+                    <Fabricate suitablefabricators="fabricator" requiredtime="100" requiresrecipe="true">
+                      <RequiredSkill identifier="weapons" level="70" />
+                      <RequiredItem identifier="plastic" />
+                      <RequiredItem identifier="physicorium" amount="2" />
+                      <RequiredItem identifier="titaniumaluminiumalloy" amount="3" />
+                    </Fabricate>
+            
+                    <Deconstruct time="20">
+                      <Item identifier="titaniumaluminiumalloy" amount="2" />
+                      <RequiredItem identifier="steel" amount="1" />
+                    </Deconstruct>
+            
+                    <InventoryIcon texture="%ModDir%/Weapons/R36.png" sourcerect="0,0,0,0" scale="2" />
+                    <Sprite texture="%ModDir%/Weapons/R36.png" sourcerect="0,0,0,0" depth="0.55" />
+                    <Body width="200" height="100" density="25" />
+                    <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="50,-10" aimpos="45,-5" handle1="-30,-20" handle2="30,-2" holdangle="-35" msg="ItemMsgPickUpSelect" />
+                    <RangedWeapon reload="2.4" weapondamagemodifier="1.0" penetration="0.7" holdtrigger="true" barrelpos="80,27" spread="10" unskilledspread="22" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2">
+                      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+                      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+                      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+                      <Sound file="%ModDir%/Audio/R36.ogg" type="OnUse" range="3000" />
+                      <StatusEffect type="OnUse" target="This">
+                          <ParticleEmitter particle="casingfirearm" particleamount="1" anglemin="90" anglemax="150" velocitymin="50" velocitymax="250" CopyEntityAngle="true" />
+                          <Explosion range="300.0" force="1.0" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="30.0" />
+                        </StatusEffect>
+                        <!--"Use" contained magazine to spawn projectiles.-->
+                        <StatusEffect type="OnUse" target="Contained">
+                          <Use />
+                        </StatusEffect>
+                        <RequiredItems items="r36mag" type="Contained" msg="ItemMsgAmmoRequired" />
+                        <RequiredSkill identifier="weapons" level="70" />
+                      </RangedWeapon>
+                      <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
+                        <Containable items="r36mag" hide="false" itempos="-3,-13" rotation="0" />
+                        <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
+                        <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+                        <SubContainer capacity="1" maxstacksize="1">
+                          <Containable items="flashlight" hide="true" itempos="22,-1" setactive="true" />
+                        </SubContainer>
+                      </ItemContainer>
+                      <aitarget sightrange="2000" soundrange="4000" fadeouttime="5" />
+                      <Quality>
+                        <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+                      </Quality>
+                      <Upgrade gameversion="0.10.0.0" scale="0.5" />
+                      <SkillRequirementHint identifier="weapons" level="50" />
+                    </Item>
+
+                    <Item name="R-36 Magazine" identifier="r36mag" maxstacksize="8" maxstacksizecharacterinventory="2" scale="0.5" category="Weapon" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,smgammo" impactsoundtag="impact_metal_light">
+                      <PreferredContainer primary="r36" amount="1" spawnprobability="1" />
+                      <PreferredContainer primary="armcab" amount="1" spawnprobability="1" notcampaign="true" />
+                      <PreferredContainer secondary="outpostsecarmcab" minamount="1" maxamount="2" spawnprobability="0.5" />
+                      <PreferredContainer secondary="wrecksecarmcab" minamount="1" maxamount="2" spawnprobability="0.2" />
+                      <PreferredContainer secondary="secarmcab" />
+                      <Price baseprice="400" displaynonempty="true" minleveldifficulty="15">
+                        <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+                        <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="2" sold="false" />
+                        <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+                        <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="4" />
+                        <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+                        <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="4" />
+                      </Price>
+                
+                      <Fabricate suitablefabricators="fabricator" requiredtime="1" displayname="Resupply" requiresrecipe="true">
+                        <RequiredSkill identifier="weapons" level="60" />
+                        <RequiredItem tag="resupplybox" mincondition="0.50" />
+                      </Fabricate>
+                    
+                      <Fabricate suitablefabricators="fabricator" requiredtime="1" displayname="Resupplyrecycle" requiresrecipe="true">
+                        <RequiredSkill identifier="weapons" level="60" />
+                        <RequiredItem tag="resupplybox" mincondition="0.40" />
+                        <RequiredItem identifier="r36mag" mincondition="0.0" maxcondition="0.1" usecondition="false" />
+                      </Fabricate>
+                
+                      <Fabricate suitablefabricators="fabricator" requiredtime="25" requiresrecipe="true">
+                        <RequiredSkill identifier="weapons" level="60" />
+                        <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" amount="2"/>
+                        <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" amount="2" />
+                        <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" amount="2" />
+                        <RequiredItem identifier="steel" />
+                      </Fabricate>
+                      <Fabricate suitablefabricators="fabricator" requiredtime="15" displayname="recycleitem" requiresrecipe="true">
+                        <RequiredSkill identifier="weapons" level="60" />
+                        <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" amount="2"/>
+                        <RequiredItem tag="munition_core" description="fabricationdescription.munition_core" amount="2"/>
+                        <RequiredItem tag="munition_jacket" description="fabricationdescription.munition_jacket" amount="2"/>
+                        <RequiredItem identifier="r36mag" mincondition="0.0" maxcondition="0.1" usecondition="false" />
+                      </Fabricate>
+                      <Deconstruct time="10">
+                        <Item identifier="steel" />
+                      </Deconstruct>
+                      <InventoryIcon texture="%ModDir%/Magazines/R36Mag.png" sourcerect="0,0,0,0" scale="0.5"/>
+                      <Sprite texture="%ModDir%/Magazines/R36Mag.png" depth="0.54" sourcerect="0,0,0,0" scale="2"/>
+                      <Body width="14" height="40" density="25" />
+                      <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="r36round" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
+                        <Containable items="r36round" />
+                        <!--Spawn an SMG round on use. Condition -4.8 -> 21 shots per magazine.-->
+                        <StatusEffect type="OnUse" target="This" condition="-21.0" disabledeltatime="true">
+                          <SpawnItem identifiers="r36round" spawnposition="ThisInventory" />
+                        </StatusEffect>
+                      </ItemContainer>
+                      <!--Magazines can be combined to raise condition.-->
+                      <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+                      <Upgrade gameversion="0.10.0.0" scale="0.5" />
+                    </Item>
+
+                    <Item name="" identifier="r36round" category="Weapon" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem" impactsoundtag="impact_metal_light" hideinmenus="true" scale="0.5">
+                      <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
+                      <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+                      <Body width="40" height="14" density="30" />
+                      <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+                      <Projectile characterusable="false" hitscan="true" removeonhit="true">
+                        <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,175" scalemultiplier="1,0.6" />
+                        <Attack structuredamage="4" targetforce="5" itemdamage="4" severlimbsprobability="0.5">
+                          <Affliction identifier="gunshotwound" strength="55" />
+                          <Affliction identifier="bleeding" strength="25" />
+                          <Affliction identifier="stun" strength="0.2" probability="0.3" />
+                        </Attack>
+                        <StatusEffect type="OnImpact" target="UseTarget">
+                          <ParticleEmitter particle="impactfirearm" particleamount="10" velocitymin="0" velocitymax="0" />
+                        </StatusEffect>
+    
+                        <StatusEffect type="OnImpact" target="This" disabledeltatime="true">
+                          <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
+                          <Explosion range="500.0" ballastfloradamage="20" structuredamage="5" levelwalldamage="30" itemdamage="10" force="2.0" severlimbsprobability="0.1" debris="false" smoke="false" flames="false" sparks="true" shockwave="true">
+                            <Affliction identifier="bleeding" strength="5" probability="0.5" />
+                            <Affliction identifier="explosiondamage" strength="10" />
+                          </Explosion>
+                          <Remove />
+                        </StatusEffect>
+    
+                        <StatusEffect type="OnImpact" target="UseTarget">
+                          <Conditional entitytype="eq Structure" />
+                          <Conditional hastag="eq door" />
+                          <sound file="Content/Items/Weapons/ExplosionDebris2.ogg" range="2000" />
+                          <Explosion range="500.0" ballastfloradamage="20" structuredamage="5" levelwalldamage="30" itemdamage="10" force="2.0" severlimbsprobability="0.1" debris="false" smoke="false" flames="false" sparks="true" shockwave="true">
+                            <Affliction identifier="bleeding" strength="5" probability="0.5" />
+                            <Affliction identifier="explosiondamage" strength="10" />
+                          </Explosion>
+                          <Remove />
+                          <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="1" scalemax="2" />
+                        </StatusEffect>
+                        <!-- smg rounds should not exist outside magazines -->
+                        <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+                          <Remove />
+                        </StatusEffect>
+                      </Projectile>
+                      <Upgrade gameversion="0.10.0.0" scale="0.5" />
+                    </Item>
 
 </Items>

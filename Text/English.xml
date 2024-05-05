@@ -2,4 +2,8 @@
 <infotexts language="English" nowhitespace="false" translatedname="English">
     <displayname.Resupply>[itemname] (Resupply Box)</displayname.Resupply>
     <displayname.Resupplyrecycle>[itemname] (Resupply Box Recycle)</displayname.Resupplyrecycle>
+    <entityname.jar5>JAR-5 Dominator</entityname.jar5>
+    <entityname.jar5mag>JAR-5 Dominator Magazine</entityname.jar5mag>
+    <entityname.r36>R-36 Eruptor</entityname.r36>
+    <entityname.r36mag>R-36 Eruptor Magazine</entityname.r36mag>
 </infotexts>
