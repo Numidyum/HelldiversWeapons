@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Helldivers Weapons" modversion="1.17" corepackage="False" steamworkshopid="3235413754" gameversion="1.4.6.0">
+<contentpackage name="Helldivers Weapons" modversion="1.24" corepackage="False" steamworkshopid="3235413754" gameversion="1.4.6.0">
   <Item file="%ModDir%/Weapons.xml" />
   <Text file="%ModDir%/Text/English.xml" />
   <Talents file="%ModDir%/Talents.xml" />
+  <Particles file="%ModDir%/Particles.xml" />
 </contentpackage>

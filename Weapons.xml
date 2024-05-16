@@ -449,7 +449,7 @@
         <Use />
       </StatusEffect>
       <RequiredItems items="p2mag" type="Contained" msg="ItemMsgAmmoRequired" />
-      <RequiredSkill identifier="weapons" level="60" />
+      <RequiredSkill identifier="weapons" level="35" />
     </RangedWeapon>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="false" containedstateindicatorslot="0" containedstateindicatorstyle="bullet" containedspritedepth="0.56">
       <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="256,448,64,64" origin="0.5,0.5" />
@@ -1454,5 +1454,323 @@
     <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
   </Item>
+
+<!--LAS-16 Sickle-->
+<Item name="LAS-16 Sickle" identifier="LAS16"  category="Weapon" cargocontaineridentifier="metalcrate" tags="battery,batterycellrecharger,smallautoweapon,smallitem,weapon,gun,gunsmith,mountableweapon" Scale="0.6" impactsoundtag="impact_metal_light">
+  <Deconstruct time="10">
+    <Item identifier="copper" />
+    <Item identifier="plastic" />
+    <Item identifier="lead" />
+    <Item identifier="titaniumaluminiumalloy" />
+    <Item identifier="fulgurium" />
+  </Deconstruct>
+  <Fabricate suitablefabricators="fabricator" requiredtime="70" requiresrecipe="true">
+    <RequiredSkill identifier="electrical" level="65" />
+    <RequiredItem identifier="fpgacircuit" />
+    <RequiredItem identifier="lead" amount="2"/>
+    <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+    <RequiredItem identifier="fulgurium" amount="2" />
+  </Fabricate>
+  
+  <Sprite texture="%ModDir%/Weapons/LAS16.png" sourcerect="0,0,0,0" depth="0.55"/>
+  <Body width="238" height="63" density="25" />
+  <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="60,-10" aimpos="60,0" handle1="-43,-18" handle2="20,-2" holdangle="-35" msg="ItemMsgPickUpSelect" />
+  <RangedWeapon reload="0.1" holdtrigger="true" barrelpos="118,14" spread="7" unskilledspread="15" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2" maxchargetime="0.62" ChargeSoundWindupPitchSlide="0.5,1.5">
+    <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+    <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+    <ParticleEmitter particle="GlowDot" scalemin="1.0" scalemax="1.0" particleamount="20" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" colormultiplier="255,238,233,78" />
+    <ParticleEmitterCharge particle="GlowDot" particlespersecond="60" scalemultiplier="0.75,0.75" scalemin="3" scalemax="3" anglemax="360" colormultiplier="255,238,233,78" />
+    <Sound file="%ModDir%/Audio/LAS16.ogg" type="OnUse" range="3000"/>
+    <ChargeSound file="%ModDir%/Audio/LAS16Charge.ogg" range="1000" />
+    <StatusEffect type="OnUse" target="This">
+      <Explosion range="30.0" force="1" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
+    </StatusEffect>
+    <StatusEffect type="OnUse" target="Contained">
+      <Use />
+    </StatusEffect>
+
+    <StatusEffect type="OnUse" target="This" maxchargetime="0.01" duration="0.3" stackable="false" setvalue="true" tags="spinning">
+    </StatusEffect>
+
+    <StatusEffect type="OnUse" target="This" maxchargetime="0.62" duration="0.1" stackable="true" delay="0.4" setvalue="true" tags="dischargesound">
+    </StatusEffect>
+
+    <StatusEffect type="Always" target="This" comparison="And" checkconditionalalways="true">
+      <Conditional HasStatusTag="dischargesound"/>
+      <Conditional HasStatusTag="neq spinning"/>
+      <Sound file="%ModDir%/Audio/LAS16End.ogg" range="3000"/>
+    </StatusEffect>
+
+    <StatusEffect type="Always" targettype="Contained" targets="lasice" Condition="0.2" ChargePercentage="0.001" targetcontainer="true" targetitemcomponent="PowerContainer" stackable="false">
+    </StatusEffect>
+
+
+    <RequiredItems items="LASIce" type="Contained" msg="ItemMsgAmmoRequired" />
+    <RequiredSkill identifier="weapons" level="60" />
+    <RequiredSkill identifier="electrical" level="30" />
+  </RangedWeapon>
+  <ItemContainer capacity="1" maxstacksize="1" hideitems="true" itempos="10,-5" containedspritedepths="0.562,0.561" containedstateindicatorstyle="default" containedstateindicatorslot="0">
+    <Containable items="LASIce" rotation="90"/>
+    <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+    <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+    <SubContainer capacity="1" maxstacksize="1">
+      <Containable items="flashlight" hide="true" itempos="25,0" setactive="true"/>
+    </SubContainer>
+  </ItemContainer>
+  <aitarget sightrange="3000" soundrange="5000" fadeouttime="5" />
+  <Quality>
+    <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+  </Quality>
+  <SkillRequirementHint identifier="weapons" level="60" />
+  <SkillRequirementHint identifier="electrical" level="30" />
+</Item>
+
+<Item name="LAS-16 Ice" identifier="LASIce" maxstacksize="8" maxstacksizecharacterinventory="2" scale="0.075" category="Weapon" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,lasice" impactsoundtag="impact_metal_light">
+  <PreferredContainer primary="LAS16" amount="1" spawnprobability="1" />
+
+  <Fabricate suitablefabricators="fabricator" requiredtime="1" displayname="Resupply">
+    <RequiredSkill identifier="weapons" level="1" />
+    <RequiredItem tag="resupplybox" mincondition="0.75" />
+  </Fabricate>
+
+  <Fabricate suitablefabricators="fabricator" requiredtime="25">
+    <RequiredSkill identifier="weapons" level="40" />
+    <RequiredSkill identifier="electrical" level="30" />
+    <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
+    <RequiredItem tag="reactorfuel" />
+    <RequiredItem tag="mobilebattery" amount="2"/>
+  </Fabricate>
+
+  <Deconstruct time="10">
+    <Item identifier="steel" />
+  </Deconstruct>
+  <InventoryIcon texture="%ModDir%/Magazines/LAS16Mag.png" sourcerect="0,0,0,0"/>
+  <Sprite texture="%ModDir%/Magazines/LAS16Mag.png" depth="0.54" sourcerect="0,0,0,0" />
+  <Body width="14" height="40" density="25" />
+  <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="LAS16Bullet" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
+    <Containable items="LAS16Bullet" />
+    <!--Spawn an SMG round on use. Condition -4.8 -> 21 shots per magazine.-->
+    <StatusEffect type="OnUse" target="This" condition="-1.0" disabledeltatime="true">
+      <SpawnItem identifiers="LAS16Bullet" spawnposition="ThisInventory" />
+    </StatusEffect>
+  </ItemContainer>
+  <!--Magazines can be combined to raise condition.-->
+  <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  <ItemComponent>
+    <StatusEffect type="OnBroken" target="This">
+        <Remove />
+    </StatusEffect>
+    </ItemComponent>
+  <Upgrade gameversion="0.10.0.0" scale="0.5" />
+</Item>
+
+<Item name="" identifier="LAS16Bullet" category="Weapon" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem" impactsoundtag="impact_metal_light" hideinmenus="true" scale="0.5">
+  <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
+  <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+  <Body width="40" height="14" density="30" />
+  <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+  <Projectile characterusable="false" hitscan="true" removeonhit="true">
+    <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,175" scalemultiplier="1,0.6" />
+    <Attack structuredamage="4" targetforce="5" itemdamage="4" severlimbsprobability="0.1">
+      <Affliction identifier="gunshotwound" strength="10" />
+      <Affliction identifier="burn" strength="15" />
+      <Affliction identifier="stun" strength="0.2" probability="0.1" />
+    </Attack>
+    <StatusEffect type="OnImpact" target="UseTarget">
+      <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
+    </StatusEffect>
+    <StatusEffect type="OnImpact" target="UseTarget">
+      <Conditional entitytype="eq Structure" />
+      <Conditional hastag="eq door" />
+      <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+    </StatusEffect>
+    <!-- smg rounds should not exist outside magazines -->
+    <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+      <Remove />
+    </StatusEffect>
+  </Projectile>
+  <Upgrade gameversion="0.10.0.0" scale="0.5" />
+</Item>
+
+<Item name="Stratagem Ball (Flare)" identifier="stratagemballf" category="Equipment" maxstacksize="16" maxstacksizecharacterinventory="8" cargocontaineridentifier="metalcrate" Scale="0.05" tags="smallitem,light,provocative,sonar" impactsoundtag="impact_soft" isshootable="true" damagedbymonsters="true" health="50">
+
+  <Fabricate suitablefabricators="fabricator" requiredtime="25">
+    <RequiredSkill identifier="electrical" level="30" />
+    <RequiredItem identifier="fpgacircuit"/>
+    <RequiredItem identifier="steel" />
+    <RequiredItem identifier="zinc"/>
+  </Fabricate>
+  
+  <Deconstruct time="10">
+    <Item identifier="steel" />
+  </Deconstruct>
+
+  <InventoryIcon texture="%ModDir%/Weapons/BallFlare.png" sourcerect="0,0,0,0" origin="0.5,0.5" />
+  <Sprite texture="%ModDir%/Weapons/BallFlare.png" sourcerect="0,0,0,0" depth="0.55" origin="0.5,0.5" />
+  <Body width="50" height="15" density="10"/>
+  <Throwable slots="Any,RightHand,LeftHand" holdpos="0,0" handle1="0,0" holdangle="90" throwforce="3.0" aimpos="35,-10" msg="ItemMsgPickUpSelect" />
+  <AiTarget soundrange="50000" sonarlabel="entityname.stratagemballf" sight="400" staticsight="true"/>
+  <LightComponent LightColor="255,0.0,0.0,255" Flicker="0.5" range="600" IsOn="false" powerconsumption="0">
+    <StatusEffect type="OnUse" targettype="This" IsOn="true" DontCleanUp="True">
+      <Conditional IsOn="eq False" targetitemcomponent="LightComponent" />
+      <sound file="Content/Items/Tools/FlareIgnite.ogg" range="800.0" />
+    </StatusEffect>
+    <StatusEffect type="OnActive" targettype="This" Condition="-0.2" />
+    <StatusEffect type="OnActive" targettype="This">
+      <Conditional PhysicsBodyActive="eq true" />
+      <ParticleEmitter particle="StratagemRed" AngleMax="360" ScaleMultiplier="1,1" ParticlesPerSecond="10" ColorMultiplier="255,255,255,255" />
+    </StatusEffect>
+    <StatusEffect type="OnBroken" targettype="This" IsOn="false" />
+
+    <StatusEffect type="OnActive" targettype="This" SoundRange="50000" powerconsumption="0" setvalue="true">
+      <sound file="Content/Items/Weapons/SonarDecoy.ogg" range="500.0" loop="true" volume="0.25" />
+    </StatusEffect>
+    
+  <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
+    <GuiFrame relativesize="0.16,0.15" anchor="CenterLeft" pivot="BottomLeft" relativeoffset="0.006,-0.05" style="ItemUI" />
+    <TickBox text="Stratagem.Active">
+      <StatusEffect type="OnUse" targettype="This" IsOn="true" />
+      <StatusEffect type="OnSecondaryUse" targettype="This" IsOn="false" />
+    </TickBox>
+    <TextBox text="Stratagem.Signal" propertyname="SonarLabel" maxtextlength="32"/>
+  </CustomInterface>
+    
+    <sound file="Content/Items/Tools/FlareLoop.ogg" type="OnActive" range="800.0" loop="true" />
+  </LightComponent>
+  <Upgrade gameversion="0.10.0.0" scale="0.5" />
+</Item>
+
+<Item name="LAS-5 Scythe" identifier="LAS5"  category="Weapon" cargocontaineridentifier="metalcrate" tags="battery,batterycellrecharger,smallautoweapon,smallitem,weapon,gun,gunsmith,mountableweapon" Scale="0.6" impactsoundtag="impact_metal_light">
+  <Deconstruct time="10">
+    <Item identifier="copper" />
+    <Item identifier="plastic" />
+    <Item identifier="lead" />
+    <Item identifier="titaniumaluminiumalloy" />
+    <Item identifier="fulgurium" />
+  </Deconstruct>
+  <Fabricate suitablefabricators="fabricator" requiredtime="70" requiresrecipe="true">
+    <RequiredSkill identifier="electrical" level="65" />
+    <RequiredItem identifier="fpgacircuit" />
+    <RequiredItem identifier="lead" amount="2"/>
+    <RequiredItem identifier="titaniumaluminiumalloy" amount="2" />
+    <RequiredItem identifier="fulgurium" amount="2" />
+  </Fabricate>
+  
+  <Sprite texture="%ModDir%/Weapons/LAS5.png" sourcerect="0,0,0,0" depth="0.55"/>
+  <Body width="238" height="63" density="25" />
+  <Holdable slots="Any,RightHand+LeftHand" controlpose="true" holdpos="60,-10" aimpos="60,0" handle1="-20,-18" handle2="50,-6" holdangle="-35" msg="ItemMsgPickUpSelect" />
+  <RangedWeapon reload="0.15" holdtrigger="true" barrelpos="118,14" spread="0" unskilledspread="0" combatPriority="80" drawhudwhenequipped="true" crosshairscale="0.2" maxchargetime="0.2" ChargeSoundWindupPitchSlide="0.5,1.5">
+    <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+    <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+    <ParticleEmitter particle="GlowDot" scalemin="1.0" scalemax="1.0" particleamount="20" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" colormultiplier="255,238,233,78" />
+    <ParticleEmitterCharge particle="GlowDot" particlespersecond="60" scalemultiplier="0.75,0.75" scalemin="3" scalemax="3" anglemax="360" colormultiplier="255,238,233,78" />
+    <Sound file="%ModDir%/Audio/LAS5.ogg" type="OnUse" range="3000"/>
+    <ChargeSound file="%ModDir%/Audio/LAS5Charge.ogg" range="1000" />
+    <StatusEffect type="OnUse" target="Contained">
+      <Use />
+    </StatusEffect>
+
+    <StatusEffect type="OnUse" target="This" maxchargetime="0.01" duration="0.3" stackable="false" setvalue="true" tags="spinning">
+    </StatusEffect>
+
+    <StatusEffect type="OnUse" target="This" maxchargetime="0.2" duration="0.1" stackable="true" delay="0.4" setvalue="true" tags="dischargesound">
+    </StatusEffect>
+
+    <StatusEffect type="Always" target="This" comparison="And" checkconditionalalways="true">
+      <Conditional HasStatusTag="dischargesound"/>
+      <Conditional HasStatusTag="neq spinning"/>
+      <Sound file="%ModDir%/Audio/LAS5Discharge.ogg" range="3000"/>
+    </StatusEffect>
+
+    <StatusEffect type="Always" targettype="Contained" targets="lasice" Condition="1" ChargePercentage="0.1" targetcontainer="true" targetitemcomponent="PowerContainer" stackable="false">
+    </StatusEffect>
+
+
+    <RequiredItems items="LASIce" type="Contained" msg="ItemMsgAmmoRequired" />
+    <RequiredSkill identifier="weapons" level="60" />
+    <RequiredSkill identifier="electrical" level="30" />
+  </RangedWeapon>
+  <ItemContainer capacity="1" maxstacksize="1" hideitems="true" itempos="10,-5" containedspritedepths="0.562,0.561" containedstateindicatorstyle="default" containedstateindicatorslot="0">
+    <Containable items="LASIce" rotation="90"/>
+    <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="128,448,64,64" origin="0.5,0.5" />
+    <SlotIcon slotindex="1" texture="Content/UI/StatusMonitorUI.png" sourcerect="320,448,64,64" origin="0.5,0.5" />
+    <SubContainer capacity="1" maxstacksize="1">
+      <Containable items="flashlight" hide="true" itempos="25,0" setactive="true"/>
+    </SubContainer>
+  </ItemContainer>
+  <aitarget sightrange="3000" soundrange="5000" fadeouttime="5" />
+  <Quality>
+    <QualityStat stattype="FirepowerMultiplier" value="0.1" />
+  </Quality>
+  <SkillRequirementHint identifier="weapons" level="60" />
+  <SkillRequirementHint identifier="electrical" level="30" />
+</Item>
+
+<Item name="LAS-5 Ice" identifier="LAS5Ice" maxstacksize="8" maxstacksizecharacterinventory="2" scale="0.075" category="Weapon" cargocontaineridentifier="metalcrate" linkable="true" tags="smallitem,lasice" impactsoundtag="impact_metal_light">
+  <PreferredContainer primary="LAS5" amount="1" spawnprobability="1" />
+
+  <Fabricate suitablefabricators="fabricator" requiredtime="1" displayname="Resupply">
+    <RequiredSkill identifier="weapons" level="1" />
+    <RequiredItem tag="resupplybox" mincondition="0.75" />
+  </Fabricate>
+
+  <Fabricate suitablefabricators="fabricator" requiredtime="25">
+    <RequiredSkill identifier="weapons" level="40" />
+    <RequiredSkill identifier="electrical" level="30" />
+    <RequiredItem tag="munition_propulsion" description="fabricationdescription.munition_propulsion" />
+    <RequiredItem tag="reactorfuel" />
+    <RequiredItem tag="mobilebattery" amount="2"/>
+  </Fabricate>
+
+  <Deconstruct time="10">
+    <Item identifier="steel" />
+  </Deconstruct>
+  <InventoryIcon texture="%ModDir%/Magazines/LAS16Mag.png" sourcerect="0,0,0,0"/>
+  <Sprite texture="%ModDir%/Magazines/LAS16Mag.png" depth="0.54" sourcerect="0,0,0,0" />
+  <Body width="14" height="40" density="25" />
+  <ItemContainer hideitems="true" capacity="1" drawinventory="false" canbeselected="false" ShowConditionInContainedStateIndicator="true" SpawnWithId="LAS5Bullet" removecontaineditemsondeconstruct="true" containedstateindicatorstyle="bullet">
+    <Containable items="LAS5Bullet" />
+    <!--Spawn an SMG round on use. Condition -4.8 -> 21 shots per magazine.-->
+    <StatusEffect type="OnUse" target="This" condition="-3.0" disabledeltatime="true">
+      <SpawnItem identifiers="LAS5Bullet" spawnposition="ThisInventory" />
+    </StatusEffect>
+  </ItemContainer>
+  <!--Magazines can be combined to raise condition.-->
+  <Holdable canBeCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect" />
+  <ItemComponent>
+    <StatusEffect type="OnBroken" target="This">
+        <Remove />
+    </StatusEffect>
+    </ItemComponent>
+  <Upgrade gameversion="0.10.0.0" scale="0.5" />
+</Item>
+
+<Item name="" identifier="LAS5Bullet" category="Weapon" interactthroughwalls="true" cargocontaineridentifier="metalcrate" tags="smallitem" impactsoundtag="impact_metal_light" hideinmenus="true" scale="0.5">
+  <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
+  <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="195,282,17,6" depth="0.55" origin="0.5,0.5" />
+  <Body width="40" height="14" density="30" />
+  <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+  <Projectile characterusable="false" hitscan="true" removeonhit="true">
+    
+    <ParticleEmitter particle="las5partc" particleamount="1" velocitymin="0" velocitymax="0" scalemultiplier="1,1" ColorMultiplier="235,227,77,255" LifeTimeMultiplier="1" />
+    <Attack structuredamage="4" targetforce="5" itemdamage="4" severlimbsprobability="0.1">
+      <Affliction identifier="gunshotwound" strength="7" />
+      <Affliction identifier="burn" strength="12" />
+    </Attack>
+    <StatusEffect type="OnImpact" target="UseTarget">
+      <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
+    </StatusEffect>
+    <StatusEffect type="OnImpact" target="UseTarget">
+      <Conditional entitytype="eq Structure" />
+      <Conditional hastag="eq door" />
+      <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+    </StatusEffect>
+    <!-- smg rounds should not exist outside magazines -->
+    <StatusEffect type="OnNotContained" target="This" stackable="false" delay="1">
+      <Remove />
+    </StatusEffect>
+  </Projectile>
+  <Upgrade gameversion="0.10.0.0" scale="0.5" />
+</Item>
 
 </Items>
