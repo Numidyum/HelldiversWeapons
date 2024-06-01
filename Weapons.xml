@@ -1623,7 +1623,7 @@
     <StatusEffect type="OnBroken" targettype="This" IsOn="false" />
 
     <StatusEffect type="OnActive" targettype="This" SoundRange="50000" powerconsumption="0" setvalue="true">
-      <sound file="Content/Items/Weapons/SonarDecoy.ogg" range="500.0" loop="true" volume="0.25" />
+      <sound file="%ModDir%/Audio/BallBeacon.ogg" range="500.0" loop="true" volume="0.25" />
     </StatusEffect>
     
   <CustomInterface canbeselected="false" drawhudwhenequipped="true" allowuioverlap="true">
@@ -1635,7 +1635,7 @@
     <TextBox text="Stratagem.Signal" propertyname="SonarLabel" maxtextlength="32"/>
   </CustomInterface>
     
-    <sound file="Content/Items/Tools/FlareLoop.ogg" type="OnActive" range="800.0" loop="true" />
+    <sound file="%ModDir%/Audio/BallLoop.ogg" type="OnActive" range="800.0" loop="true" />
   </LightComponent>
   <Upgrade gameversion="0.10.0.0" scale="0.5" />
 </Item>
